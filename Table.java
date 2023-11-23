@@ -17,7 +17,7 @@ public class Table extends JPanel {
     private ArrayList<JLabel> accesses;
     private JLabel[] labels;
 
-    String name;
+    private String name;
 
     public Table(String name, String[] labelsNames) {
         this.cols = labelsNames.length;
@@ -49,7 +49,7 @@ public class Table extends JPanel {
     }
 
     //public void addThread() { //  ---------------- parámetro borrado
-    public void addThread() {
+    public void addAgent(int n) {
         int nPanels = panels.size();
         for (int i = 0; i < this.cols; i++) {
             panels.add(new JPanel());
@@ -66,12 +66,12 @@ public class Table extends JPanel {
         });/* */
         //panels.get(nPanels).add(btns.get(btns.size() - 1));
         
-        panels.get(nPanels).add(new JLabel(name));
+        panels.get(nPanels).add(new JLabel(name + " " + n));
 
         //panels.get(nPanels + 1).add(new JLabel(thread.getName()));        
         panels.get(nPanels + 1).add(new JLabel(""));
         accesses.add(new JLabel(""));
-        panels.get(nPanels + 2).add(accesses.get(accesses.size() - 1));
+        panels.get(nPanels + 1).add(accesses.get(accesses.size() - 1));
     }
 
     public void changeState(int row, int col) {
@@ -90,6 +90,10 @@ public class Table extends JPanel {
 
     public void changeState(int row, String val) {
         accesses.get(row).setText(val);
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

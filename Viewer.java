@@ -1,34 +1,61 @@
+import java.awt.Color;
 import java.util.Random;
 
 public class Viewer extends Thread{
     private Random rand;
-    private String state;
+    private int number;
+    private String currentState;
     private Race race;
+    public Table table;
 
-    public Viewer(Race race, int n){
+    public Viewer(Race race, int n, Table table){
+        super("Viewer " + (n+1));
         rand = new Random();
-        state = "Watching";
+        number = n+1;
+        currentState = "Watching";
         this.race = race;
+        this.table = table;
+        table.changeState(number, 1, Color.CYAN);
     }
 
     @Override
     public void run() {
         while(!race.isFinished){
+            if (currentState != "Watching") {
+                currentState = "Watching";
+                table.changeState(number, 1, Color.CYAN);
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
             // Need to pee
             if (rand.nextInt(100) < 1) {
-                state = "Gone";
+                currentState = "Gone";
+                table.changeState(number, 3, Color.RED);
                 break;
             }
             if (rand.nextInt(100) < 10) {
-                // Mandar a orinar
-                state = "Pee";
+                Toilet toilet;
+                do {
+                    toilet = race.getFreeToilet();
+                } while (toilet == null);
+                currentState = "Peeing";
+                table.changeState(number, 2, Color.YELLOW);
+                toilet.pee();
             }
-            state = "Watching";
         }
+        currentState = "Gone";
+        table.changeState(number, 3, Color.RED);
     }
     
     public String getCurrentState() {
-        return state;
+        return currentState;
+    }
+
+    public void setCurrentState(String currentState) {
+        this.currentState = currentState;
     }
     
 }
