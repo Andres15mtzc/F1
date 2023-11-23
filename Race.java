@@ -15,21 +15,21 @@ public class Race {
     private void buildRunners(int noRunners) {
         runners = new Runner[noRunners];
         for (int i = 0; i < noRunners; i++) {
-            runners[i] = new Runner(i);
+            runners[i] = new Runner(this, i);
         }
     }
 
     private void buildMechanics(int noMechanics) {
         mechanics = new Mechanic[noMechanics];
         for (int i = 0; i < noMechanics; i++) {
-            mechanics[i] = new Mechanic(i);
+            mechanics[i] = new Mechanic(this, i);
         }
     }
 
     private void buildViewers(int noViewers) {
         viewers = new Viewer[noViewers];
         for (int i = 0; i < noViewers; i++) {
-            viewers[i] = new Viewer(i);
+            viewers[i] = new Viewer(this, i);
         }
     }
 
