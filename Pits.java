@@ -4,7 +4,7 @@ public class Pits extends Buffer{
     private Mechanic mechanic;
 
     public Pits(Mechanic mechanic) {
-        super(mechanic.getNumber());
+        super(mechanic.race, mechanic.getNumber());
         this.mechanic = mechanic;
     }
     /*
@@ -19,6 +19,7 @@ public class Pits extends Buffer{
     } */
     public void fix(){
         // Logica de arreglar carro
+        race.updateBufferWindow(1); // number 1 updates pits label on buffer window
         mechanic.setCurrentState("Working");
         mechanic.table.changeState(mechanic.getNumber(), 2, Color.YELLOW);
         try {
@@ -29,5 +30,6 @@ public class Pits extends Buffer{
         mechanic.setCurrentState("Waiting");
         mechanic.table.changeState(mechanic.getNumber(), 1, Color.CYAN);
         this.isOccupied = false;
+        race.updateBufferWindow(1);
     }
 }

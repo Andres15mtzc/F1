@@ -6,6 +6,7 @@ public class Race extends Thread{
     private Pits[] pits;
     private GasStation[] gasStations;
     private Toilet[] toilets;
+    private BufferWindow bufferWindow;
 
     public Race(int laps, int noRunners, int noMechanics, int noViewers, int noGasStations, int noToilets) {
         isFinished = false;
@@ -15,6 +16,7 @@ public class Race extends Thread{
         buildViewers(noViewers);
         buildGasStations(noGasStations);
         buildToilets(noToilets);
+        buildBufferWindow();
     }
 
     @Override
@@ -48,6 +50,10 @@ public class Race extends Thread{
             }
         }
         return null;
+    }
+
+    public synchronized void updateBufferWindow(int n) {
+        bufferWindow.updateWindow(n);
     }
     
     public synchronized GasStation getFreeGasStation() {
@@ -98,15 +104,19 @@ public class Race extends Thread{
     private void buildGasStations(int noGasStations) {
         gasStations = new GasStation[noGasStations];
         for (int i = 0; i < noGasStations; i++) {
-            gasStations[i] = new GasStation(i);
+            gasStations[i] = new GasStation(this, i);
         }
     }
 
     private void buildToilets(int noToilets) {
         toilets = new Toilet[noToilets];
         for (int i = 0; i < noToilets; i++) {
-            toilets[i] = new Toilet(i);
+            toilets[i] = new Toilet(this, i);
         }
+    }
+
+    private void buildBufferWindow(){
+        this.bufferWindow = new BufferWindow(getPits(), getGasStations(), getToilets());
     }
 
     public void startRace(){

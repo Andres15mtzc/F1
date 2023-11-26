@@ -12,7 +12,5 @@ public class Main {
 
         Race race = new Race(noLaps, noRunners, noMechanics, noViewers, noGasStations, noToilets);
         race.start();
-
-        new BufferWindow();
     }
 }

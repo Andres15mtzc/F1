@@ -3,7 +3,7 @@ import java.awt.Color;
 public class Mechanic extends Thread{
     private String currentState;
     private int number;
-    private Race race;
+    protected Race race;
     public Table table;
 
     public Mechanic(Race race, int n, Table table){
