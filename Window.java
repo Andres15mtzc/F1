@@ -8,7 +8,7 @@ public class Window extends JFrame {
     public Window(int n, String name, Table table) {
         this.setTitle(name);
         this.setVisible(true);
-        this.setSize(800, 600);
+        this.setSize(400, 300);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.getContentPane().add(table);

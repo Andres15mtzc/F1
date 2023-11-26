@@ -87,7 +87,7 @@ public class Table extends JPanel {
     }
 
     public void changeState(int row, int col, String val) {
-        panelTexts.get(row * this.cols + cols).setText(val);
+        panelTexts.get(row * this.cols + (col + 1)).setText(val);
     }
 
     public String getName() {

@@ -24,6 +24,7 @@ public class Viewer extends Thread{
             if (currentState != "Watching") {
                 currentState = "Watching";
                 table.changeState(number, 1, Color.CYAN);
+                table.changeState(number, 2, "");
             }
             try {
                 Thread.sleep(5000);
@@ -43,6 +44,7 @@ public class Viewer extends Thread{
                 } while (toilet == null);
                 currentState = "Peeing";
                 table.changeState(number, 2, Color.YELLOW);
+                table.changeState(number, 2, "Toilet " + (toilet.getNumber()+1));
                 toilet.pee();
             }
         }
