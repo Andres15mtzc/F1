@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.util.Random;
 
-public class Runner extends Thread{
+public class Runner extends Thread {
     private Random rand;
     private int laps;
     private int currentLaps;
@@ -10,17 +10,17 @@ public class Runner extends Thread{
     private Race race;
     public Table table;
 
-    public Runner(Race race, int n, Table table, int laps){
-        super("Runner " + (n+1));
+    public Runner(Race race, int n, Table table, int laps) {
+        super("Runner " + (n + 1));
         rand = new Random();
         currentState = "Running";
         currentLaps = 0;
-        number = n+1;
+        number = n + 1;
         this.laps = laps;
         this.race = race;
         this.table = table;
-        table.changeState(number, 2, Color.CYAN);
-        table.changeState(number-1, currentLaps + "/" + laps);
+        table.changeState(number, 1, Color.CYAN);
+        table.changeState(number, 6, currentLaps + "/" + laps);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Runner extends Thread{
         for (int i = 0; i < laps; i++) {
             if (currentState != "Running") {
                 currentState = "Running";
-                table.changeState(number, 2, Color.CYAN);
+                table.changeState(number, 1, Color.CYAN);
             }
             try {
                 Thread.sleep(8000 + rand.nextInt(4000));
@@ -36,41 +36,41 @@ public class Runner extends Thread{
                 System.out.println(e);
             }
             // Crashing
-            if(rand.nextInt(100) < 2) {
+            if (rand.nextInt(100) < 2) {
                 currentState = "Crashed";
-                table.changeState(number, 5, Color.RED);
+                table.changeState(number, 4, Color.RED);
                 break;
             }
             // Pits
-            if(rand.nextInt(100) < 10){
+            if (rand.nextInt(100) < 10) {
                 Pits pit;
                 do {
                     pit = race.getFreePit();
                 } while (pit == null);
                 currentState = "On pits";
-                table.changeState(number, 3, Color.YELLOW);
+                table.changeState(number, 2, Color.LIGHT_GRAY);
                 pit.fix();
             }
             // Gasoline
-            else if(rand.nextInt(100) < 5){
+            else if (rand.nextInt(100) < 5) {
                 GasStation gasStation;
                 do {
                     gasStation = race.getFreeGasStation();
                 } while (gasStation == null);
                 currentState = "Filling gas";
-                table.changeState(number, 4, Color.LIGHT_GRAY);
+                table.changeState(number, 3, Color.YELLOW);
                 gasStation.refill();
             }
-            
+
             currentLaps++;
-            table.changeState(number-1, currentLaps + "/" + laps);
+            table.changeState(number, 6, currentLaps + "/" + laps);
         }
-        if(currentState != "Crashed") {
+        if (currentState != "Crashed") {
             currentState = "Finished";
-            table.changeState(number, 6, Color.GREEN);
+            table.changeState(number, 5, Color.GREEN);
             // Colocar en tabla de resultados
         }
-        
+
     }
 
     public int getCurrentLaps() {
