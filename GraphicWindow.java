@@ -2,8 +2,9 @@ import javax.swing.JFrame;
 
 public class GraphicWindow extends JFrame implements Runnable {
     Race race;
-    
-    public GraphicWindow(Race race){
+    MyCanvas myC;
+
+    public GraphicWindow(Race race) {
         this.race = race;
     }
 
@@ -11,7 +12,7 @@ public class GraphicWindow extends JFrame implements Runnable {
         this.setTitle(name);
         this.setSize(1200, 800);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        MyCanvas myC = new MyCanvas(race);
+        myC = new MyCanvas(race);
         this.add(myC);
         this.setVisible(true);
     }
@@ -19,6 +20,15 @@ public class GraphicWindow extends JFrame implements Runnable {
     @Override
     public void run() {
         crearVentana("Map");
-        System.out.println("Starting work");
+        while (!race.isFinished) {
+            myC.paint(getGraphics());
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        System.out.println();
     }
 }

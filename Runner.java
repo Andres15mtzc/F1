@@ -40,6 +40,7 @@ public class Runner extends Thread {
             if (rand.nextInt(100) < 2) {
                 currentState = "Crashed";
                 table.changeState(number, 4, Color.RED);
+                race.reduce(race.noRunnersRun);
                 break;
             }
             // Pits
@@ -66,7 +67,7 @@ public class Runner extends Thread {
                     gasStation = race.getFreeGasStation();
                 } while (gasStation == null);
                 currentState = "Filling gas";
-                table.changeState(number, 3, "Station " + (gasStation.getNumber()+1));
+                table.changeState(number, 3, "Station " + (gasStation.getNumber() + 1));
                 gasStation.refill();
                 race.changePlace(race.noRunnersGas, race.noRunnersRun);
             }
@@ -76,11 +77,13 @@ public class Runner extends Thread {
         }
         if (currentState != "Crashed") {
             currentState = "Finished";
-            race.setFinishedRunners(race.getFinishedRunners()+1);
+            race.reduce(race.noRunnersRun);
+            race.setFinishedRunners(race.getFinishedRunners() + 1);
             table.changeState(number, 2, "");
             table.changeState(number, 3, "");
             table.changeState(number, 5, "" + race.getFinishedRunners() + "/" + race.getNoRunners() + " - " +
-            String.format("%.02f",(float)(System.currentTimeMillis() - race.getStartTime())/1000) + " seconds") ;
+                    String.format("%.02f", (float) (System.currentTimeMillis() - race.getStartTime()) / 1000)
+                    + " seconds");
             table.changeState(number, 5, Color.GREEN);
             // Colocar en tabla de resultados
         }

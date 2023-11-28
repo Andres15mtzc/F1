@@ -1,4 +1,4 @@
-public class Race extends Thread{
+public class Race extends Thread {
     public boolean isFinished;
     private Runner[] runners;
     private Mechanic[] mechanics;
@@ -10,11 +10,12 @@ public class Race extends Thread{
     private long startTime;
     private int finishedRunners;
     private int noRunners;
-    public int noViewersWatch = 0, noViewersPee = 0, noRunnersRun = 0, noRunnersPits = 0, noRunnersGas, noMechanicsWait = 0, noMechanicsWork = 0;
+    public volatile int noViewersWatch = 0, noViewersPee = 0, noRunnersRun = 0, noRunnersPits = 0, noRunnersGas,
+            noMechanicsWait = 0, noMechanicsWork = 0;
 
     public Race(int laps, int noRunners, int noMechanics, int noViewers, int noGasStations, int noToilets) {
         isFinished = false;
-        
+
         buildRunners(noRunners, laps);
         buildMechanics(noMechanics);
         buildViewers(noViewers);
@@ -45,13 +46,14 @@ public class Race extends Thread{
         place1 -= 1;
         place2 += 1;
     }
+
     public synchronized void reduce(int place1) {
         place1 -= 1;
     }
 
     public synchronized Toilet getFreeToilet() {
         for (Toilet toilet : toilets) {
-            if(!toilet.isOccupied) {
+            if (!toilet.isOccupied) {
                 toilet.isOccupied = true;
                 return toilet;
             }
@@ -61,7 +63,7 @@ public class Race extends Thread{
 
     public synchronized Pits getFreePit() {
         for (Pits pit : pits) {
-            if(!pit.isOccupied) {
+            if (!pit.isOccupied) {
                 pit.isOccupied = true;
                 return pit;
             }
@@ -75,16 +77,16 @@ public class Race extends Thread{
 
     public synchronized GasStation getFreeGasStation() {
         for (GasStation gasStation : gasStations) {
-            if(!gasStation.isOccupied) {
+            if (!gasStation.isOccupied) {
                 gasStation.isOccupied = true;
                 return gasStation;
             }
         }
         return null;
     }
-    
+
     private void buildRunners(int noRunners, int laps) {
-        String[] labelsNames = new String[] {"", "Running", "To pits", "Out of gas", "Crashed", "Finished", "Laps"};
+        String[] labelsNames = new String[] { "", "Running", "To pits", "Out of gas", "Crashed", "Finished", "Laps" };
         Table table = new Table("Runner", labelsNames);
         new Window(1000, 300, noRunners, "F1 Runners", table);
 
@@ -95,7 +97,7 @@ public class Race extends Thread{
     }
 
     private void buildMechanics(int noMechanics) {
-        String[] labelsNames = new String[] {"", "Waiting", "Working", "Finished"}; 
+        String[] labelsNames = new String[] { "", "Waiting", "Working", "Finished" };
         Table table = new Table("Mechanic", labelsNames);
         new Window(400, 300, noMechanics, "F1 Mechanics", table);
 
@@ -108,7 +110,7 @@ public class Race extends Thread{
     }
 
     private void buildViewers(int noViewers) {
-        String[] labelsNames = new String[] {"", "Watching", "Peeing", "Gone"};
+        String[] labelsNames = new String[] { "", "Watching", "Peeing", "Gone" };
         Table table = new Table("Viewer", labelsNames);
         new Window(400, 300, noViewers, "F1 Viewers", table);
 
@@ -132,18 +134,21 @@ public class Race extends Thread{
         }
     }
 
-    private void buildBufferWindow(){
+    private void buildBufferWindow() {
         this.bufferWindow = new BufferWindow(getPits(), getGasStations(), getToilets());
     }
 
-    public void startRace(){
+    public void startRace() {
         GraphicWindow play = new GraphicWindow(this);
         Thread t = new Thread(play);
         t.start();
-        
-        for (int i = 0; i < viewers.length; i++) viewers[i].start();
-        for (int i = 0; i < mechanics.length; i++) mechanics[i].start();
-        for (int i = 0; i < runners.length; i++) runners[i].start();
+
+        for (int i = 0; i < viewers.length; i++)
+            viewers[i].start();
+        for (int i = 0; i < mechanics.length; i++)
+            mechanics[i].start();
+        for (int i = 0; i < runners.length; i++)
+            runners[i].start();
         this.startTime = System.currentTimeMillis();
     }
 
@@ -171,19 +176,19 @@ public class Race extends Thread{
         return toilets;
     }
 
-    public long getStartTime(){
+    public long getStartTime() {
         return this.startTime;
     }
 
-    public int getNoRunners(){
+    public int getNoRunners() {
         return this.noRunners;
     }
 
-    public void setFinishedRunners(int n){
+    public void setFinishedRunners(int n) {
         this.finishedRunners = n;
     }
 
-    public int getFinishedRunners(){
+    public int getFinishedRunners() {
         return this.finishedRunners;
     }
 }

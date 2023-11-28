@@ -25,7 +25,9 @@ public class MyCanvas extends Canvas {
         drawScreen();
     }
 
-    private void drawScreen(){
+    public void drawScreen() {
+        gAll.setColor(Color.WHITE);
+        gAll.fillRect(0, 0, 1200, 800);
         drawImg(350, 50, 500, 500, "", Color.DARK_GRAY, pistaImg);
         drawImg(10, 600, 100, 100, "", Color.DARK_GRAY, toiletImg);
         drawImg(1000, 50, 100, 100, "", Color.DARK_GRAY, gasStationImg);
@@ -41,7 +43,7 @@ public class MyCanvas extends Canvas {
 
     private void drawImg(int x, int y, int w, int h, String text, Color color, BufferedImage image) {
         gAll.setColor(color);
-        gAll.drawString(text, x + w/2, y - 1);
+        gAll.drawString(text, x + w / 2, y - 1);
         gAll.drawImage(image, x, y, w, h, null);
     }
 
