@@ -41,12 +41,14 @@ public class Viewer extends Thread{
                 Toilet toilet;
                 table.changeState(number, 2, Color.YELLOW);
                 table.changeState(number, 2, "Waiting");
+                race.changePlace(race.noViewersWatch, race.noViewersPee);
                 do {
                     toilet = race.getFreeToilet();
                 } while (toilet == null);
                 currentState = "Peeing";
                 table.changeState(number, 2, "Toilet " + (toilet.getNumber()+1));
                 toilet.pee();
+                race.changePlace(race.noViewersPee, race.noViewersWatch);
             }
         }
         currentState = "Gone";

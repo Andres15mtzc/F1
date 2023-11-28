@@ -10,6 +10,7 @@ public class Race extends Thread{
     private long startTime;
     private int finishedRunners;
     private int noRunners;
+    public int noViewersWatch = 0, noViewersPee = 0, noRunnersRun = 0, noRunnersPits = 0, noRunnersGas, noMechanicsWait = 0, noMechanicsWork = 0;
 
     public Race(int laps, int noRunners, int noMechanics, int noViewers, int noGasStations, int noToilets) {
         isFinished = false;
@@ -22,6 +23,9 @@ public class Race extends Thread{
         buildBufferWindow();
         this.noRunners = noRunners;
         this.finishedRunners = 0;
+        noViewersWatch = noViewers;
+        noRunnersRun = noRunners;
+        noMechanicsWait = noMechanics;
     }
 
     @Override
@@ -35,6 +39,14 @@ public class Race extends Thread{
             }
         }
         isFinished = true;
+    }
+
+    public synchronized void changePlace(int place1, int place2) {
+        place1 -= 1;
+        place2 += 1;
+    }
+    public synchronized void reduce(int place1) {
+        place1 -= 1;
     }
 
     public synchronized Toilet getFreeToilet() {
@@ -125,7 +137,7 @@ public class Race extends Thread{
     }
 
     public void startRace(){
-        GraphicWindow play = new GraphicWindow();
+        GraphicWindow play = new GraphicWindow(this);
         Thread t = new Thread(play);
         t.start();
         
