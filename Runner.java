@@ -72,7 +72,11 @@ public class Runner extends Thread {
         }
         if (currentState != "Crashed") {
             currentState = "Finished";
-            //this.race.addToPodium(this.number);
+            race.setFinishedRunners(race.getFinishedRunners()+1);
+            table.changeState(number, 2, "");
+            table.changeState(number, 3, "");
+            table.changeState(number, 5, "" + race.getFinishedRunners() + "/" + race.getNoRunners() + " - " +
+            String.format("%.02f",(float)(System.currentTimeMillis() - race.getStartTime())/1000) + " seconds") ;
             table.changeState(number, 5, Color.GREEN);
             // Colocar en tabla de resultados
         }
