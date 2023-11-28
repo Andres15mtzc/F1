@@ -45,24 +45,25 @@ public class Runner extends Thread {
             // Pits
             if (rand.nextInt(100) < 10) {
                 Pits pit;
+                table.changeState(number, 2, Color.LIGHT_GRAY);
+                table.changeState(number, 2, "Waiting pits");
                 do {
-                    table.changeState(number, 2, "Waiting pits");
                     pit = race.getFreePit();
                 } while (pit == null);
                 currentState = "On pits";
                 table.changeState(number, 2, pit.mechanic.getName());
-                table.changeState(number, 2, Color.LIGHT_GRAY);
+                
                 pit.fix(this.getName());
             }
             // Gasoline
             else if (rand.nextInt(100) < 5) {
                 GasStation gasStation;
+                table.changeState(number, 3, Color.YELLOW);
+                table.changeState(number, 3, "Waiting for gas");
                 do {
-                    table.changeState(number, 3, "Waiting for gas");
                     gasStation = race.getFreeGasStation();
                 } while (gasStation == null);
                 currentState = "Filling gas";
-                table.changeState(number, 3, Color.YELLOW);
                 table.changeState(number, 3, "Station " + (gasStation.getNumber()+1));
                 gasStation.refill();
             }

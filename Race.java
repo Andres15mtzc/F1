@@ -125,6 +125,10 @@ public class Race extends Thread{
     }
 
     public void startRace(){
+        GraphicWindow play = new GraphicWindow();
+        Thread t = new Thread(play);
+        t.start();
+        
         for (int i = 0; i < viewers.length; i++) viewers[i].start();
         for (int i = 0; i < mechanics.length; i++) mechanics[i].start();
         for (int i = 0; i < runners.length; i++) runners[i].start();
