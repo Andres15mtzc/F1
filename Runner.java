@@ -40,7 +40,7 @@ public class Runner extends Thread {
             if (rand.nextInt(100) < 2) {
                 currentState = "Crashed";
                 table.changeState(number, 4, Color.RED);
-                race.reduce(race.noRunnersRun);
+                race.runToEnd();
                 break;
             }
             // Pits
@@ -48,28 +48,28 @@ public class Runner extends Thread {
                 Pits pit;
                 table.changeState(number, 2, Color.LIGHT_GRAY);
                 table.changeState(number, 2, "Waiting pits");
-                race.changePlace(race.noRunnersRun, race.noRunnersPits);
+                race.runToPits();
                 do {
                     pit = race.getFreePit();
                 } while (pit == null);
                 currentState = "On pits";
                 table.changeState(number, 2, pit.mechanic.getName());
                 pit.fix(this.getName());
-                race.changePlace(race.noRunnersPits, race.noRunnersRun);
+                race.pitsToRun();
             }
             // Gasoline
             else if (rand.nextInt(100) < 5) {
                 GasStation gasStation;
                 table.changeState(number, 3, Color.YELLOW);
                 table.changeState(number, 3, "Waiting for gas");
-                race.changePlace(race.noRunnersRun, race.noRunnersGas);
+                race.runToGas();
                 do {
                     gasStation = race.getFreeGasStation();
                 } while (gasStation == null);
                 currentState = "Filling gas";
                 table.changeState(number, 3, "Station " + (gasStation.getNumber() + 1));
                 gasStation.refill();
-                race.changePlace(race.noRunnersGas, race.noRunnersRun);
+                race.gasToRun();
             }
 
             currentLaps++;
@@ -77,7 +77,7 @@ public class Runner extends Thread {
         }
         if (currentState != "Crashed") {
             currentState = "Finished";
-            race.reduce(race.noRunnersRun);
+            race.runToEnd();
             race.setFinishedRunners(race.getFinishedRunners() + 1);
             table.changeState(number, 2, "");
             table.changeState(number, 3, "");

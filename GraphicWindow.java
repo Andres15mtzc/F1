@@ -20,14 +20,15 @@ public class GraphicWindow extends JFrame implements Runnable {
     @Override
     public void run() {
         crearVentana("Map");
+        myC.paint(getGraphics());
         while (!race.isFinished) {
-            myC.paint(getGraphics());
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            myC.drawScreen();
         }
         System.out.println();
     }

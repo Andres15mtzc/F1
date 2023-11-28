@@ -22,7 +22,7 @@ public class Mechanic extends Thread {
             System.out.println("");
         }
         currentState = "Finished";
-        race.reduce(race.noMechanicsWait);
+        race.waitToEnd();
         table.changeState(number, 3, Color.RED);
     }
 

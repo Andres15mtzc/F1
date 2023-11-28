@@ -23,7 +23,7 @@ public class Pits extends Buffer{
         mechanic.setCurrentState("Working");
         mechanic.table.changeState(mechanic.getNumber(), 2, runnername);
         mechanic.table.changeState(mechanic.getNumber(), 2, Color.YELLOW);
-        race.changePlace(race.noMechanicsWait, race.noMechanicsWork);
+        race.waitToWork();
         try {
             Thread.sleep(1000 + rand.nextInt(1000));
         } catch (InterruptedException e) {
@@ -32,7 +32,7 @@ public class Pits extends Buffer{
         mechanic.setCurrentState("Waiting");
         mechanic.table.changeState(mechanic.getNumber(), 2, "");
         mechanic.table.changeState(mechanic.getNumber(), 1, Color.CYAN);
-        race.changePlace(race.noMechanicsWork, race.noMechanicsWait);
+        race.workToWait();
         this.isOccupied = false;
         race.updateBufferWindow(1);
     }

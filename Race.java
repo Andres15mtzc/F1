@@ -42,13 +42,48 @@ public class Race extends Thread {
         isFinished = true;
     }
 
-    public synchronized void changePlace(int place1, int place2) {
-        place1 -= 1;
-        place2 += 1;
+    public synchronized void runToPits() {
+        noRunnersRun -= 1;
+        noRunnersPits += 1;
+    }
+    public synchronized void runToGas() {
+        noRunnersRun -= 1;
+        noRunnersGas += 1;
+    }
+    public synchronized void pitsToRun() {
+        noRunnersPits -= 1;
+        noRunnersRun += 1;
+    }
+    public synchronized void gasToRun() {
+        noRunnersGas -= 1;
+        noRunnersRun += 1;
+    }
+    public synchronized void runToEnd() {
+        noRunnersRun -= 1;
     }
 
-    public synchronized void reduce(int place1) {
-        place1 -= 1;
+    public synchronized void waitToWork() {
+        noMechanicsWait -= 1;
+        noMechanicsWork += 1;
+    }
+    public synchronized void workToWait() {
+        noMechanicsWork -= 1;
+        noMechanicsWait += 1;
+    }
+    public synchronized void waitToEnd() {
+        noMechanicsWait -= 1;
+    }
+
+    public synchronized void watchToPee() {
+        noViewersWatch -= 1;
+        noViewersPee += 1;
+    }
+    public synchronized void peeToWatch() {
+        noViewersPee -= 1;
+        noViewersWatch += 1;
+    }
+    public synchronized void watchToEnd() {
+        noViewersWatch -= 1;
     }
 
     public synchronized Toilet getFreeToilet() {

@@ -20,11 +20,13 @@ public class Info extends JFrame {
 
         panel.add(imgLabel);
         panel.add(new JLabel("Universidad Panamericana"));
+        panel.add(new JLabel("Ingeniería en Sistemas y Gráficas Computacionales"));
         panel.add(new JLabel("Fundamentos de Programación en Paralelo"));
         panel.add(new JLabel("Carlos Manuel Vélez - 0240599"));
         panel.add(new JLabel("Miguel Angel Tovar - 0213524"));
         panel.add(new JLabel("Andrés Martínez Cabrera - 0234500"));
         panel.add(new JLabel("Profesor: Juan Carlos Lopez Pimentel"));
+        panel.add(new JLabel("20 de Noviembre 2023"));
         //this.getContentPane().add(imgPanel);
 
         this.getContentPane().add(panel);
