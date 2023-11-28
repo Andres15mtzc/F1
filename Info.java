@@ -26,8 +26,8 @@ public class Info extends JFrame {
         panel.add(new JLabel("Miguel Angel Tovar - 0213524"));
         panel.add(new JLabel("Andrés Martínez Cabrera - 0234500"));
         panel.add(new JLabel("Profesor: Juan Carlos Lopez Pimentel"));
-        panel.add(new JLabel("20 de Noviembre 2023"));
-        //this.getContentPane().add(imgPanel);
+        panel.add(new JLabel("28 de Noviembre 2023"));
+        // this.getContentPane().add(imgPanel);
 
         this.getContentPane().add(panel);
         this.setVisible(true);
