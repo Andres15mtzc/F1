@@ -40,6 +40,7 @@ public class Viewer extends Thread{
             if (rand.nextInt(100) < 10) {
                 Toilet toilet;
                 do {
+                    table.changeState(number, 2, "Waiting");
                     toilet = race.getFreeToilet();
                 } while (toilet == null);
                 currentState = "Peeing";

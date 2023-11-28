@@ -24,7 +24,7 @@ public class Pits extends Buffer{
         mechanic.table.changeState(mechanic.getNumber(), 2, runnername);
         mechanic.table.changeState(mechanic.getNumber(), 2, Color.YELLOW);
         try {
-            Thread.sleep(1000 + rand.nextInt(1000));
+            Thread.sleep(1000 + rand.nextInt(1000)); // cambiar esto a mechanic
         } catch (InterruptedException e) {
             System.out.println(e);
         }

@@ -20,7 +20,6 @@ public class Runner extends Thread {
         this.race = race;
         this.table = table;
         table.changeState(number, 1, Color.CYAN);
-        table.changeState(number, 5, currentLaps + "/" + laps);
     }
 
     @Override
@@ -47,6 +46,7 @@ public class Runner extends Thread {
             if (rand.nextInt(100) < 10) {
                 Pits pit;
                 do {
+                    table.changeState(number, 2, "Waiting pits");
                     pit = race.getFreePit();
                 } while (pit == null);
                 currentState = "On pits";
@@ -58,6 +58,7 @@ public class Runner extends Thread {
             else if (rand.nextInt(100) < 5) {
                 GasStation gasStation;
                 do {
+                    table.changeState(number, 3, "Waiting for gas");
                     gasStation = race.getFreeGasStation();
                 } while (gasStation == null);
                 currentState = "Filling gas";
@@ -71,6 +72,7 @@ public class Runner extends Thread {
         }
         if (currentState != "Crashed") {
             currentState = "Finished";
+            //this.race.addToPodium(this.number);
             table.changeState(number, 5, Color.GREEN);
             // Colocar en tabla de resultados
         }

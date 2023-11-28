@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Race extends Thread{
     public boolean isFinished;
     private Runner[] runners;
@@ -7,6 +9,8 @@ public class Race extends Thread{
     private GasStation[] gasStations;
     private Toilet[] toilets;
     private BufferWindow bufferWindow;
+    private ArrayList<String> podium;
+    private long startTime;
 
     public Race(int laps, int noRunners, int noMechanics, int noViewers, int noGasStations, int noToilets) {
         isFinished = false;
@@ -56,6 +60,11 @@ public class Race extends Thread{
         bufferWindow.updateWindow(n);
     }
     
+    public synchronized void addToPodium(int n) {
+        long totalTime = (this.startTime - System.currentTimeMillis());
+        this.podium.add("Runner " + n + " Time: " + totalTime + " miliseconds");
+    }
+
     public synchronized GasStation getFreeGasStation() {
         for (GasStation gasStation : gasStations) {
             if(!gasStation.isOccupied) {
@@ -67,7 +76,7 @@ public class Race extends Thread{
     }
     
     private void buildRunners(int noRunners, int laps) {
-        String[] labelsNames = new String[] {"", "Running", "On pits", "Filling gas", "Crashed", "Finished", "Laps"};
+        String[] labelsNames = new String[] {"", "Running", "To pits", "Out of gas", "Crashed", "Finished", "Laps"};
         Table table = new Table("Runner", labelsNames);
         new Window(noRunners, "F1 Runners", table);
 
@@ -123,6 +132,7 @@ public class Race extends Thread{
         for (int i = 0; i < viewers.length; i++) viewers[i].start();
         for (int i = 0; i < mechanics.length; i++) mechanics[i].start();
         for (int i = 0; i < runners.length; i++) runners[i].start();
+        this.startTime = System.currentTimeMillis();
     }
 
     public Runner[] getRunners() {
@@ -147,5 +157,9 @@ public class Race extends Thread{
 
     public Toilet[] getToilets() {
         return toilets;
+    }
+
+    public ArrayList<String> getPodium(){
+        return podium;
     }
 }
