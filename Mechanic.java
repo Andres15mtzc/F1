@@ -1,15 +1,15 @@
 import java.awt.Color;
 
-public class Mechanic extends Thread{
+public class Mechanic extends Thread {
     private String currentState;
     private int number;
     protected Race race;
     public Table table;
 
-    public Mechanic(Race race, int n, Table table){
-        super("Mechanic " + (n+1));
+    public Mechanic(Race race, int n, Table table) {
+        super("Mechanic " + (n + 1));
         currentState = "Waiting";
-        number = n+1;
+        number = n + 1;
         this.race = race;
         this.table = table;
         table.changeState(number, 1, Color.CYAN);
@@ -17,7 +17,7 @@ public class Mechanic extends Thread{
 
     @Override
     public void run() {
-        while(!race.isFinished) {
+        while (!race.isFinished) {
             // Waiting
             System.out.println("");
         }

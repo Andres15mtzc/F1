@@ -1,6 +1,4 @@
-import java.util.Random;
-
-public class GasStation extends Buffer{
+public class GasStation extends Buffer {
     public GasStation(Race race, int n) {
         super(race, n);
     }
@@ -10,7 +8,7 @@ public class GasStation extends Buffer{
         try {
             Thread.sleep(4000 + rand.nextInt(2000));
         } catch (InterruptedException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         this.isOccupied = false;
         race.updateBufferWindow(2);

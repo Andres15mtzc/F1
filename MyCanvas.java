@@ -12,21 +12,24 @@ public class MyCanvas extends Canvas {
     boolean shooted = false;
     BufferedImage pistaImg, mechanicImg, runnerImg, viewerImg, gasStationImg, toiletImg, pitsImg;
 
-    MyCanvas(){
+    MyCanvas() {
         this.setBackground(Color.WHITE);
         setImages();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        gAll = g.create();
         drawImg(10, 10, 10, 10, "0", Color.DARK_GRAY, toiletImg);
     }
-    @Override
-    public void paint(Graphics g){
-        gAll = g.create();
-    }
-    private void drawImg(int x, int y, int w, int h, String text, Color color, BufferedImage image){
+
+    private void drawImg(int x, int y, int w, int h, String text, Color color, BufferedImage image) {
         gAll.setColor(color);
-        gAll.drawString(text, x, y-1);
+        gAll.drawString(text, x, y - 1);
         gAll.drawImage(image, x, y, null);
     }
-    private void setImages(){
+
+    private void setImages() {
         try {
             pistaImg = ImageIO.read(new File("./Assets/Toilet.png"));
             mechanicImg = ImageIO.read(new File("./Assets/Toilet.png"));
