@@ -50,6 +50,7 @@ public class Viewer extends Thread{
             }
         }
         currentState = "Gone";
+        table.changeState(number, 2, "");
         table.changeState(number, 3, Color.RED);
     }
     
